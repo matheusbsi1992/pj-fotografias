@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="head-end">
+
+    </ui:define>
+
+    <ui:define name="title">
+        Senha de Acesso
+    </ui:define>
+
+    <ui:define name="description">
+        Senha ... 
+    </ui:define>
+
+    <ui:define name="body">
+        <f:metadata>
+        </f:metadata>
+        <div class="box box-primary">
+
+            <div class="box-header with-border">
+
+
+                <h:form id="formsenha" >
+                    <p:spacer height="30px"/>
+
+                    <h3>Nova Senha de Acesso</h3>
+                    <p:separator/>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <p:outputLabel for="password" value="Senha*" />
+                            <p:password  id="password" feedback="true"
+                                         promptLabel="Informe uma senha"
+                                         weakLabel="Muito fraca"
+                                         goodLabel="Senha razoável"
+                                         strongLabel="Senha forte" 
+                                         inline="true" match="senha" value="#{contaAlterarUsuarioMB.pessoaTransfer.senhapessoa}" validator="#{contaAlterarUsuarioMB.validarSenha}" styleClass="form-control"/>
+                            <p:message for="password"/>
+                        </div>
+                        <div class="ui-g-6">
+                            <p:outputLabel for="senha" value="Confirme a senha*" />
+                            <p:password id="senha" value="#{contaAlterarUsuarioMB.pessoaTransfer.senhaconfirmacao}" styleClass="form-control"/>
+                            <p:message for="senha"/>
+                        </div>
+                    </div>
+                    <p:spacer height="80"/>
+
+
+                    <div class="ui-g-12 ">
+
+                        <p:commandButton actionListener="#{contaAlterarUsuarioMB.editarSenha()}" value="Salvar" 
+                                         ajax="false"   icon="fa fa-check" styleClass="btn-primary">
+                            <f:param name="identificarsenha" value="#{contaAlterarUsuarioMB.pessoaTransfer.id}" />
+                            <f:ajax execute="@all" render="@all" event="click"/>
+                        </p:commandButton>
+
+                        <p:spacer width="10" height="10" />
+                        <p:commandButton action="#{contaAlterarUsuarioMB.limparAction}" value="Cancelar" 
+                                         icon="fa fa-trash"
+                                         styleClass="btn-danger">
+                        </p:commandButton>
+                        <p:spacer width="10" height="10" />
+
+                        <p:commandButton value="Voltar" immediate="true"
+                                         action="consultarusuario?faces-redirect=true"
+                                         icon="fa fa-close"
+                                         />
+                    </div>
+
+
+                </h:form>            
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

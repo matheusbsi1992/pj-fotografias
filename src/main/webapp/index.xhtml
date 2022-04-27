@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:adm="http://github.com/adminfaces"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h:head>
+        <title>Login</title>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon.ico']}"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-16x16.png']}" sizes="16x16"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-32x32.png']}" sizes="32x32"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-96x96.png']}" sizes="96x96"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['favicon/favicon-144x144.png']}" sizes="144x144"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <meta name="mobile-web-app-capable" content="yes"/>
+        <h:outputStylesheet library="css" name="prism.css"/>
+
+        <meta name="theme-color" content="#444"/>
+
+        <style type="text/css">
+
+            /* below css hides growls in small screens and makes messages visible */
+            @media (max-width: 768px) {
+
+                body div.ui-growl {
+                    display: none;
+                }
+
+                body div.ui-messages {
+                    display: block;
+                }
+
+            }
+            /* below css hides messages in medium/big devices and makes growl visible in such devices */
+            @media (min-width: 769px) {
+                body div.ui-growl {
+                    display: block;
+                }
+
+                body div.ui-messages {
+                    display: none;
+                }
+            }
+
+
+            body.login-page {
+                background-color: transparent;
+            }
+
+            html {
+                background: url(#{resource[ 'images:masthead.png' ]}) no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+
+        </style>
+    </h:head>
+
+
+    <h:body styleClass="hold-transition login-page">
+        <p:growl autoUpdate="true" sticky="true"/>
+        <div id="loader" class="load-bar" style="display: none">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+
+        <div class="login-box">
+            <div class="login-logo">
+                <p:link href="index.xhtml"><b>Photo</b>Style</p:link>
+            </div>
+            <!-- /.login-logo -->
+            <div class="box login-box-body">
+                <h:form id="formlogin">
+                    <p class="login-box-msg">Informe dados para iniciar sua sessão</p>
+                    <div>
+                        <p:messages autoUpdate="true"  id="msg" closable="true" />
+                    </div>
+                    <div class="form-group has-feedback">
+                        <p:inputText  id="usuario"
+                                      value="#{loginMB.pessoaTransfer.usuariopessoa}"
+                                      validator="#{loginMB.validarUsuarioSenhaLogin}"  
+                                      styleClass="form-control"
+                                      placeholder="Usuario"/>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <p:password id="senha"  
+                                    value="#{loginMB.pessoaTransfer.senhapessoa}"
+                                    styleClass="form-control"
+                                    placeholder="Password"
+                                    autocomplete="off"/>
+                    </div>
+                    <div class="row">
+                        <p:spacer height="10"/>
+                        <div class="col-xs-12">
+                            <p:commandButton styleClass="btn btn-success btn-block" 
+                                             onclick="showBar()"
+                                             action="#{loginMB.loginUsuario()}" 
+                                             value="Sign In"
+                                             />
+                        </div>
+                    </div>
+                    <p:spacer width="10px"/>                   
+                </h:form>
+            </div>
+            <!-- /.login-box-body -->
+        </div>
+        
+        <h:outputScript library="js" name="prism.js"  target="head"/>
+        <h:outputScript library="js" name="admintemplate.js"  target="head"/>
+    </h:body>
+</html>

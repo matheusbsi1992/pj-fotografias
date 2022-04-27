@@ -1,0 +1,151 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="head-end">
+        <style type="text/css">
+            .ui-grid-row .ui-grid-col-2,
+            .ui-grid-row .ui-grid-col-10 {
+                padding: 0.5em 0;
+                margin-left: 10px;
+            }
+
+            .ui-orderlist .ui-orderlist-list {
+                height: auto;
+            }
+
+            .ui-orderlist .ui-grid-row .ui-grid-col-2,
+            .ui-orderlist .ui-grid-row .ui-grid-col-10 {
+                padding: 0;
+            }
+        </style>
+
+    </ui:define>
+
+    <ui:define name="title">
+        Eventos em Andamento
+    </ui:define>
+
+    <ui:define name="description">
+        Pesquise ... 
+    </ui:define>
+
+    <ui:define name="body">
+
+
+        <div class="box box-primary right">
+            <div class="box-header with-border right">
+                <h:form id="consultar"  rendered="#{((loginMB.pessoaTransfer.tipopessoa ==('CLIENTE')) and (loginMB.pessoaTransfer.statuspessoa ==('A')))}">
+                    <p:panel class="ui-g-12">
+                        <legend>Pesquisar</legend>
+                        <div class="ui-g-12">
+                            <div class="ui-g-12 ui-md-4">
+                                <div class="ui-inputgroup">
+                                    <p:inputText placeholder="Evento" value="#{loginMB.nomeevento}"/>
+                                    <p:commandButton update=":mensagem :consultar:overviewTableUser" ajax="false" actionListener="#{loginMB.consultarAction()}"  icon="fa fa-search" styleClass="btn-info"/>
+                                </div>
+                            </div>
+                        </div>
+                    </p:panel>
+
+                    <p:spacer height="20px"/>
+
+                    <p:dataTable var="item" 
+                                 value="#{loginMB.eventogaleria}"
+                                 sortBy="#{item.nomeevento}" 
+                                 expandableRowGroups="true"
+                                 emptyMessage="Nenhum Registro Encontrado."
+                                 styleClass="responsive-table striped display" 
+                                 id="overviewTableUser"
+                                 paginator="true"
+                                 rows="10"	                    			 	                                 
+                                 paginatorPosition="bottom"	                                 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="[ Exibindo de {startRecord} a {endRecord} no total de {totalRecords} - Página: {currentPage}/{totalPages} ]"
+                                 rowsPerPageTemplate="5,10,15,20,30">
+
+                        <p:column headerText="*" width="50" styleClass="align-center">
+                            <p:rowToggler expandLabel="Abrir" collapseLabel="Fechar" />
+                        </p:column>
+
+                        <p:headerRow>
+                            <p:column headerText="" colspan="4" width="100%">
+                                <p:commandLink value="Evento(#{item.nomeevento})" 
+                                               action="#{alterarEventoMB.visualizarEvento}" 
+                                               ajax="false"
+                                               >    
+                                    <f:setPropertyActionListener value="#{item}" target="#{alterarEventoMB.galeriaTransfer}"/>
+                                </p:commandLink>
+                            </p:column>
+                        </p:headerRow>
+
+                        <p:column headerText="Data Evento"  width="100%" styleClass="align-center">
+                            <h:outputText value="#{item.dataevento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Cliente"  width="100%" styleClass="align-center">
+                            <h:outputText value="#{item.nomepessoa}" />
+                            <i>(<h:outputText value="#{item.usuariopessoa}" />)</i>
+                        </p:column>
+
+
+                        <p:rowExpansion>
+                            <p:panelGrid columns="2" >
+                                <f:facet name="header">
+                                    <h:outputLabel value="DADOS DO USUÁRIO"/> 
+                                </f:facet>
+
+                                <h:outputText value="Cpf:" style="color: black; width: 12px;"/>
+                                <h:outputText value="#{item.cpfpessoa}" />
+
+                                <h:outputText value="Email:" style="color: black; width: 12px;" />
+                                <h:outputText value="#{item.emailpessoa}" />
+
+                                <h:outputText value="Nascimento:" style="color: black; width: 20px;" />
+                                <h:outputText value="#{item.datanascimento}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+
+                                <h:outputText value="Celular:" style="color: black; width: 12px;" />
+                                <h:outputText value="#{item.celularpessoa}" />
+
+                                <h:outputText value="Sexo:" style="color: black; width: 12px;" />
+                                <h:outputText value="#{item.sexopessoa}" />
+
+                                <h:outputText value="Cep:" style="color: black; width: 12px;" />
+                                <h:outputText value="#{item.cependereco}" />
+
+                                <h:outputText value="Logradouro:"  style="color: black; width: 12px;"/>
+                                <h:outputText value="#{item.logradouroendereco}" />
+
+                                <h:outputText value="Cidade:" style="color: black; width: 12px;" />
+                                <h:outputText value="#{item.cidadeendereco}" />
+
+                                <h:outputText value="Estado:" style="color: black; width: 12px;" />
+                                <h:outputText value="#{item.estadoendereco}" />
+
+                                <h:outputText value="Observacao:" style="color: black; width: 12px;" />
+                                <h:outputText value="#{item.observacaopessoa}" />
+
+                                <h:outputText value="Data Cadastro:"  style="color: black; width: 12px;"/>
+                                <h:outputText value="#{item.datacadastropessoa}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+
+                                <h:outputText value="Tipo:"  style="color: black; width: 12px;"/>
+                                <h:outputText value="#{item.tipopessoa}" />
+
+                            </p:panelGrid>
+                        </p:rowExpansion>
+                    </p:dataTable>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

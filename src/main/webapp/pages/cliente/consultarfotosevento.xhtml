@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/template.xhtml"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="head-end">
+
+    </ui:define>
+
+    <ui:define name="title">
+        Visualizar Fotos
+    </ui:define>
+
+    <ui:define name="description">
+        Fotos ... 
+    </ui:define>
+
+    <ui:define name="body">
+        <f:metadata>
+        </f:metadata>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h:form id="formulariodialogo" prependId="false" rendered="#{((loginMB.pessoaTransfer.tipopessoa ==('CLIENTE')) and (loginMB.pessoaTransfer.statuspessoa ==('A')))}">
+                    <p:commandButton process="@this"
+                                     update=":formulariodialogo :imagensvisualizadas"
+                                     icon="fa fa-thumbs-o-up"
+                                     styleClass="btn btn-success"
+                                     action="#{alterarEventoMB.removerActionImageCliente(image.id)}" 
+                                     value="Aceitar Fotos Escolhidas"
+                                     />
+                    <p:spacer height="10px"/>
+                    <p:commandButton onclick="PF('visualizarselecionadas').show();"
+                                     icon="fa fa-file-image-o"
+                                     value="Minhas Fotos"
+                                     type="button"
+                                     title="Visualizar Fotos Escolhidas" 
+                                     styleClass="btn-primary"/>
+                    <p:dialog header="Minhas Fotos" 
+                              widgetVar="visualizarselecionadas"
+                              appendTo="@(body)"
+                              modal="true" 
+                              minimizable="true"
+                              maximizable="true"
+                              styleClass="box-primary"
+                              showEffect="explode" 
+                              hideEffect="bounce"
+                              style="text-align: center;"
+                              id="iddialogo">                              
+                        <div class="col-xs-12">
+                            <p:dataTable var="image" 
+                                         value="#{alterarEventoMB.listaDownloadImages}" 
+                                         rows="1" 
+                                         styleClass="responsive-table striped display" 
+                                         paginator="true"
+                                         paginatorPosition="bottom" 
+                                         emptyMessage="Nenhum registro encontrado."
+                                         id="imagensvisualizadas"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         currentPageReportTemplate="[ Exibindo de {startRecord} a {endRecord} no total de {totalRecords} - Página: {currentPage}/{totalPages} ]"
+                                         rowsPerPageTemplate="5,10,15"
+                                         >
+                                <p:column headerText="" style="text-align: center">
+                                    <p:fieldset toggleable="true" toggleSpeed="500" legend="Fotos Escolhidas">
+                                        <p:graphicImage value="#{alterarEventoMB.imagedownload}">
+                                            <f:param name="pidimagedownload" value="#{image.id}" />
+                                        </p:graphicImage>
+                                    </p:fieldset>
+                                    <p:commandButton process="@this"
+                                                     update=":formulariodialogo :imagensvisualizadas"
+                                                     icon="fa fa-thumbs-o-down"
+                                                     styleClass="btn-danger"
+                                                     action="#{alterarEventoMB.removerActionImageCliente(image.id)}" 
+                                                     title="Não Gostei )-;}" 
+                                                     value="Não Gostei"
+                                                     style="width: 100%"
+                                                     onclick="PF('visualizarselecionadas').show();"
+                                                     />
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formularioimagens" prependId="false" rendered="#{((loginMB.pessoaTransfer.tipopessoa ==('CLIENTE')) and (loginMB.pessoaTransfer.statuspessoa ==('A')))}">
+
+                    <p:focus/>
+
+                    <p:separator/>
+                    <div class="col-xs-12">
+                        <p:dataTable 
+                            value=""
+                            expandableRowGroups="true"
+                            emptyMessage="Nenhum Registro Encontrado."
+                            styleClass="responsive-table striped display" 
+                            id="overviewTableUser"
+                            paginatorPosition="bottom"	                                 
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                            >
+
+                            <p:column headerText="Nome de Usuario" width="100%" styleClass="align-center">
+                                <h:outputText value="#{alterarEventoMB.listarUsuarioEvento}"/>
+                            </p:column>
+
+                            <p:column headerText="Nome do Evento"  width="100%" styleClass="align-center">
+                                <h:outputText value="#{alterarEventoMB.galeriaTransfer.nomeevento}"/>
+                            </p:column>
+
+                            <p:column headerText="Data Evento"  width="100%" styleClass="align-center">
+                                <h:outputText value="#{alterarEventoMB.galeriaTransfer.dataevento}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Observação"  width="100%" styleClass="align-center">
+                                <h:outputText value="#{alterarEventoMB.galeriaTransfer.observacaoevento}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+
+                    <p:spacer height="20px"/>
+
+                    <div class="col-xs-12">
+                        <p:outputLabel for="imagens" value="Imagens"/>
+                    </div>
+                    <div class="col-xs-12">
+                        <p:dataTable var="image" 
+                                     value="#{alterarEventoMB.listafotos}" 
+                                     rows="1" 
+                                     styleClass="responsive-table striped display" 
+                                     paginator="true"
+                                     paginatorPosition="bottom" 
+                                     emptyMessage="Nenhum registro encontrado."
+                                     id="imagens"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="[ Exibindo de {startRecord} a {endRecord} no total de {totalRecords} - Página: {currentPage}/{totalPages} ]"
+                                     rowsPerPageTemplate="5,10,15"
+                                     >
+                            <p:column headerText="" style="text-align: center">
+                                <p:fieldset toggleable="true" toggleSpeed="500" legend="Fotos">
+                                    <p:graphicImage value="#{alterarEventoMB.image}">
+                                        <f:param name="pid" value="#{image.id}" />
+                                    </p:graphicImage>
+                                </p:fieldset>
+                                <p:commandButton
+                                    class="btn btn-success btn-block"
+                                    actionListener="#{alterarEventoMB.selecionarImages()}"  
+                                    title="Like(-:}" 
+                                    value="Gostei"
+                                    ajax="false"
+                                    style="width: 100%;font-size:15px;"
+                                    icon="fa fa-thumbs-o-up"
+                                    >
+                                    <f:param name="pid" value="#{image.id}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

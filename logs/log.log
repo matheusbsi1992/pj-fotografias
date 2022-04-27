@@ -1,0 +1,28 @@
+14/01/2019 10:06:09[class br.com.fotografias.dao.CadastrarEventoDAO],>>>>Error ao deletarImagemGaleria,[ERROR: relation "projeto.galeria" does not exist
+  Posição: 14]
+28/01/2019 09:02:40[class br.com.fotografias.dao.CadastrarEventoDAO],>>>>Error ao inserirEventoImagens,[ERROR: column "statusevento" of relation "tbevento" does not exist
+  Posição: 119]
+28/01/2019 09:10:55[class br.com.fotografias.dao.CadastrarEventoDAO],>>>>Error ao inserirEventoImagens,[ERROR: syntax error at end of input
+  Posição: 178]
+28/01/2019 09:19:21[class br.com.fotografias.dao.CadastrarEventoDAO],>>>>Error ao inserirEventoImagens,[ERROR: syntax error at end of input
+  Posição: 153]
+28/01/2019 09:47:14[class br.com.fotografias.dao.CadastrarEventoDAO],>>>>Error ao inserirEventoImagens,[ERROR: INSERT has more expressions than target columns
+  Posição: 172]
+07/02/2019 09:47:45[class br.com.fotografias.dao.CadastrarEventoDAO],>>>>Error na insercacao das fotos,[ERROR: column "idgaleria" specified more than once
+  Posição: 101]
+07/02/2019 11:20:24[class br.com.fotografias.dao.CadastrarEventoDAO],>>>>Error na insercacao das fotos,[ERROR: column "idgaleria" specified more than once
+  Posição: 101]
+16/02/2019 07:59:41[class br.com.fotografias.dao.CadastrarEventoDAO],>>>>Error na insercacao das fotos,[ERROR: duplicate key value violates unique constraint "tbpessoaeventogaleria_pk"
+  Detalhe: Key (idgaleria, idevento, idpessoa)=(615, 215, 2) already exists.]
+18/02/2019 10:21:04[class br.com.fotografias.dao.CadastrarEventoDAO],>>>>Error na insercacao das fotos,[ERROR: duplicate key value violates unique constraint "tbpessoaeventogaleria_pk"
+  Detalhe: Key (idgaleria, idevento, idpessoa)=(610, 215, 2) already exists.]
+18/02/2019 10:21:52[class br.com.fotografias.dao.CadastrarEventoDAO],>>>>Error na insercacao das fotos,[ERROR: duplicate key value violates unique constraint "tbpessoaeventogaleria_pk"
+  Detalhe: Key (idgaleria, idevento, idpessoa)=(610, 215, 2) already exists.]
+18/02/2019 10:23:37[class br.com.fotografias.dao.CadastrarEventoDAO],>>>>Error na insercacao das fotos,[ERROR: duplicate key value violates unique constraint "tbpessoaeventogaleria_pk"
+  Detalhe: Key (idgaleria, idevento, idpessoa)=(610, 215, 2) already exists.]
+18/02/2019 10:55:15[class br.com.fotografias.dao.CadastrarEventoDAO],>>>>Error na insercacao das fotos,[ERROR: duplicate key value violates unique constraint "tbpessoaeventogaleria_pk"
+  Detalhe: Key (idgaleria, idevento, idpessoa)=(573, 215, 2) already exists.]
+18/02/2019 10:55:21[class br.com.fotografias.dao.CadastrarEventoDAO],>>>>Error na insercacao das fotos,[ERROR: duplicate key value violates unique constraint "tbpessoaeventogaleria_pk"
+  Detalhe: Key (idgaleria, idevento, idpessoa)=(576, 215, 2) already exists.]
+18/02/2019 11:05:02[class br.com.fotografias.dao.CadastrarEventoDAO],>>>>Error na insercacao das fotos,[ERROR: duplicate key value violates unique constraint "tbpessoaeventogaleria_pk"
+  Detalhe: Key (idgaleria, idevento, idpessoa)=(615, 215, 2) already exists.]

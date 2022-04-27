@@ -1,0 +1,193 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="head-end">
+        <style type="text/css">
+            .ui-grid-row .ui-grid-col-2,
+            .ui-grid-row .ui-grid-col-10 {
+                padding: 0.5em 0;
+                margin-left: 10px;
+            }
+
+            .ui-orderlist .ui-orderlist-list {
+                height: auto;
+            }
+
+            .ui-orderlist .ui-grid-row .ui-grid-col-2,
+            .ui-orderlist .ui-grid-row .ui-grid-col-10 {
+                padding: 0;
+            }
+        </style>
+
+    </ui:define>
+
+    <ui:define name="title">
+        Permissões de Usuário
+    </ui:define>
+
+    <ui:define name="description">
+        Pesquise ... 
+    </ui:define>
+
+    <ui:define name="body">
+
+        <div class="box box-primary right">
+            <div class="box-header with-border right">
+                <h:form>
+                    <p:commandButton action="cadastrarusuario?faces-blackirect=true" ajax="false" icon="fa fa-plus"
+                                     value="Novo" styleClass="btn-primary"/>
+                    <p:spacer height="10px"/>
+                    <p:commandButton id="confbloquear" 
+                                     icon="fa fa-hand-stop-o"
+                                     styleClass="btn-danger"
+                                     value="Bloquear Clientes"
+                                     action="#{contaAlterarUsuarioMB.bloquearAction()}"
+                                     onclick="if (confirm('Deseja Bloquear Todos Clientes ?') === true) {
+                                                 confirmation.show();
+                                             } else
+                                                 return false"
+                                     ajax="false"
+                                     >
+                    </p:commandButton>
+                    <p:separator/>
+                </h:form>
+
+                <h:form id="consultar">
+                    <p:panel class="ui-g-12">
+                        <legend>Pesquisar</legend>
+                        <div class="ui-g-12">
+                            <div class="ui-g-12 ui-md-4">
+                                <div class="ui-inputgroup">
+                                    <p:inputText placeholder="Nome" value="#{contaAlterarUsuarioMB.nome}"/>
+                                    <p:commandButton update=":mensagem :consultar:overviewTableUser" ajax="false" actionListener="#{contaAlterarUsuarioMB.consultarAction()}" icon="fa fa-search" styleClass="btn-info"/>
+                                </div>
+                            </div>
+                        </div>
+                    </p:panel>
+
+                    <p:spacer height="20px"/>
+
+                    <p:dataTable var="item" value="#{contaAlterarUsuarioMB.listaPessoaTransfers}"
+                                 emptyMessage="Nenhuma Registro Encontrado."
+                                 styleClass="responsive-table striped display" 
+                                 id="overviewTableUser"
+                                 paginator="true"
+                                 rows="10"	                    			 	                                 
+                                 paginatorPosition="bottom"	                                 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="[ Exibindo de {startRecord} a {endRecord} no total de {totalRecords} - Página: {currentPage}/{totalPages} ]"
+                                 rowsPerPageTemplate="5,10,15,20,30"
+                                 >
+
+                        <p:column headerText="*" width="35" styleClass="align-center">
+                            <p:rowToggler expandLabel="Abrir" collapseLabel="Fechar" />
+                        </p:column>
+
+                        <p:column headerText="Usuario"  width="150" styleClass="align-center">
+                            <h:outputText  value="#{item.usuariopessoa}" />
+                        </p:column>
+
+                        <p:column headerText="Nome"  width="150" styleClass="align-center">
+                            <h:outputText value="#{item.nomepessoa}" />
+                        </p:column>
+
+                        <p:column headerText="Data Cadastro"  width="80" styleClass="align-center">
+                            <h:outputText value="#{item.datacadastropessoa}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Tipo"  width="50" styleClass="align-center">
+                            <h:outputText value="#{item.tipopessoa}" />
+                        </p:column>
+
+                        <p:column headerText="Status"  width="40" styleClass="align-center">
+                            <h:outputText value="#{item.statuspessoa}" />
+                        </p:column>
+
+                        <p:rowExpansion>
+                            <p:panelGrid columns="2" >
+                                <h:outputText value="Cpf:" style="color: black; width: 12px;"/>
+                                <h:outputText value="#{item.cpfpessoa}" />
+
+                                <h:outputText value="Email:" style="color: black; width: 12px;" />
+                                <h:outputText value="#{item.emailpessoa}" />
+
+                                <h:outputText value="Nascimento:" style="color: black; width: 20px;" />
+                                <h:outputText value="#{item.datanascimento}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+
+                                <h:outputText value="Celular:" style="color: black; width: 12px;" />
+                                <h:outputText value="#{item.celularpessoa}" />
+
+                                <h:outputText value="Sexo:" style="color: black; width: 12px;" />
+                                <h:outputText value="#{item.sexopessoa}" />
+
+                                <h:outputText value="Cep:" style="color: black; width: 12px;" />
+                                <h:outputText value="#{item.cependereco}" />
+
+                                <h:outputText value="Logradouro:"  style="color: black; width: 12px;"/>
+                                <h:outputText value="#{item.logradouroendereco}" />
+
+                                <h:outputText value="Cidade:" style="color: black; width: 12px;" />
+                                <h:outputText value="#{item.cidadeendereco}" />
+
+                                <h:outputText value="Estado:" style="color: black; width: 12px;" />
+                                <h:outputText value="#{item.estadoendereco}" />
+
+                                <h:outputText value="Observacao:" style="color: black; width: 12px;" />
+                                <h:outputText value="#{item.observacaopessoa}" />
+
+                            </p:panelGrid>
+                        </p:rowExpansion>
+                        <p:column headerText="Opcoes" styleClass="align-center" width="150">
+                            <p:commandButton id="confexcluir" 
+                                             title="Excluir"
+                                             icon="fa fa-trash"
+                                             action="#{contaAlterarUsuarioMB.excluirAction(item.id)}"
+                                             onclick="if (confirm('Deseja realmente excluir está Pessoa: #{item.nomepessoa}? Isto acarretará problemas no futuro!') === true)    
+                                                 confirmation.show();
+                                                     else
+                                                         return false"
+                                             ajax="false"
+                                             >
+                            </p:commandButton>
+                            <p:spacer width="10" height="10" />
+                            <p:commandButton id="confeditar"
+                                             title="Editar"
+                                             icon="fa fa-pencil"
+                                             actionListener="#{contaAlterarUsuarioMB.alterarDados()}"
+                                             onclick="if (confirm('Deseja Editar Este Usuário: #{item.usuariopessoa} ?') === true)
+                                                         confirmation.show();
+                                                     else
+                                                         return false"
+                                             ajax="false"
+                                             >
+                                <f:setPropertyActionListener value="#{item}" target="#{contaAlterarUsuarioMB.pessoaTransfer}"/>
+                            </p:commandButton>
+                            <p:spacer width="10" height="10"/>
+                            <p:commandButton id="confsenha"
+                                             title="Senha"
+                                             icon="fa fa-key"
+                                             actionListener="#{contaAlterarUsuarioMB.atualizarSenha()}"
+                                             onclick="if (confirm('Deseja Editar Senha Deste Usuário: #{item.usuariopessoa} ?') === true)
+                                                         confirmation.show();
+                                                     else
+                                                         return false"
+                                             ajax="false"
+                                             >
+                                <f:setPropertyActionListener value="#{item}" target="#{contaAlterarUsuarioMB.pessoaTransfer}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

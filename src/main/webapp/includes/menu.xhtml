@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ul class="sidebar-menu">
+        <li>
+            <h:link outcome="/photostyle.xhtml?faces-redirect=true">
+                <i class="fa fa-home"></i>
+                <span>Home</span>
+            </h:link>
+        </li>
+        <li>
+            <h:link outcome="/pages/projeto/editarusuariologado.xhtml?faces-redirect=true">
+                <i class="fa fa-edit"></i>
+                <span>Meus Dados</span>
+            </h:link>
+        </li>
+        <li class="header">
+            <p:tab rendered="#{((loginMB.pessoaTransfer.tipopessoa ==('USUARIO'))or (loginMB.pessoaTransfer.tipopessoa ==('ADMINISTRADOR'))) and (loginMB.pessoaTransfer.statuspessoa ==('A'))}">Cadastros</p:tab>
+            <p:tab rendered="#{((loginMB.pessoaTransfer.tipopessoa ==('CLIENTE')) and (loginMB.pessoaTransfer.statuspessoa ==('A')))}">Consultar</p:tab>
+        </li>
+        <li>
+            <h:link rendered="#{((loginMB.pessoaTransfer.tipopessoa ==('USUARIO'))or (loginMB.pessoaTransfer.tipopessoa ==('ADMINISTRADOR'))) and (loginMB.pessoaTransfer.statuspessoa ==('A'))}" outcome="/pages/projeto/consultarusuario.xhtml?faces-redirect=true">
+                <i class="fa fa-users"></i>
+                <span>Usuários</span>
+            </h:link>
+        </li>
+        <li>
+            <h:link rendered="#{((loginMB.pessoaTransfer.tipopessoa ==('USUARIO')) or (loginMB.pessoaTransfer.tipopessoa ==('ADMINISTRADOR'))and (loginMB.pessoaTransfer.statuspessoa ==('A')))}" outcome="/pages/projeto/consultarevento.xhtml?faces-redirect=true">
+                <i class="fa fa-address-book"></i>
+                <span>Eventos</span>
+            </h:link>
+            <h:link rendered="#{((loginMB.pessoaTransfer.tipopessoa ==('CLIENTE')) and (loginMB.pessoaTransfer.statuspessoa ==('A')))}" outcome="/pages/cliente/consultareventos.xhtml?faces-redirect=true">
+                <i class="fa fa-address-book"></i>
+                <span>Eventos</span>
+            </h:link>
+        </li>
+    </ul>
+</ui:composition>

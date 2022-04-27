@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="head-end">
+        
+    </ui:define>
+
+    <ui:define name="title">
+        Meus Dados
+    </ui:define>
+
+    <ui:define name="description">
+        Dados ... 
+    </ui:define>
+
+    <ui:define name="body">
+        <f:metadata>
+        </f:metadata>
+        <div class="box box-primary">
+
+            <div class="box-header with-border">
+                <h:form id="formulario" prependId="false">
+
+                    <p:focus/>
+
+                    <h3>Dados Pessoais</h3>
+
+                    <p:separator/>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <h:inputHidden id="id" value="#{loginMB.pessoaTransfer.id}"/>
+                            <p:outputLabel for="nome" value="Nome*"/> 
+                            <p:inputText id="nome" value="#{loginMB.pessoaTransfer.nomepessoa}" validator="#{loginMB.validarNome}" styleClass="form-control"/>                                            
+                            <p:message for="nome"/>
+                        </div>
+
+                        <div class="ui-g-6">
+                            <p:outputLabel for="cpf" value="CPF*"/>
+                            <p:inputMask id="cpf" value="#{loginMB.pessoaTransfer.cpfpessoa}"  mask="999.999.999-99"  validator="#{loginMB.validarCPF}" styleClass="form-control"/>                                            
+                            <p:message for="cpf" />
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <p:outputLabel for="email" value="Email*" />
+                            <p:inputText  id="email" value="#{loginMB.pessoaTransfer.emailpessoa}" validator="#{loginMB.validarEmail}" styleClass="form-control"/>
+                            <p:message for="email"/>
+                        </div>
+
+                        <div class="ui-g-6">
+                            <p:outputLabel for="celular" value="Celular" />
+                            <p:inputMask id="celular" value="#{loginMB.pessoaTransfer.celularpessoa}"  mask="(99)99999-9999" styleClass="form-control"/>                                            
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <p:outputLabel for="sexo" value="Sexo"/>
+                            <p:selectOneMenu id="sexo" value="#{loginMB.pessoaTransfer.sexopessoa}" 
+                                             effect="fade"  
+                                             filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Selecione Sexo" itemValue="" ></f:selectItem>
+                                <f:selectItem itemLabel="Masculino" itemValue="M" ></f:selectItem>
+                                <f:selectItem itemLabel="Feminino" itemValue="F" ></f:selectItem>
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="ui-g-6">
+                            <p:outputLabel for="nascimento" value="Nascimento*"/>
+                            <p:calendar inputStyle="width:100%" locale="pt_BR" pages="2" showOn="button" focusOnSelect="true" pattern="dd/MM/yyyy"  mask="99/99/9999" navigator="true" id="nascimento" value="#{loginMB.pessoaTransfer.datanascimento}" validator="#{loginMB.validarData}" />
+                            <p:message for="nascimento"/>
+                        </div>
+                    </div>
+                    <div class="ui-g-12">
+                        <div class="ui-g-12">
+                            <p:outputLabel for="observacao" value="Observação" />
+                            <p:inputText  id="observacao" value="#{loginMB.pessoaTransfer.observacaopessoa}" validator="#{loginMB.validarObservacao}" styleClass="form-control"/>
+                            <p:message for="observacao"/>
+                        </div>
+                    </div>
+
+                    <p:spacer height="30px"/>
+
+                    <h3>Endereço</h3>
+
+                    <p:separator/>
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <p:outputLabel for="cep" value="Cep"/>
+                            <p:inputMask   id="cep" value="#{loginMB.pessoaTransfer.cependereco}" mask="99999-999" styleClass="form-control"/>
+                        </div>                                                                        
+
+                        <div class="ui-g-6">
+                            <p:outputLabel for="complemento" value="Complemento" />
+                            <p:inputText  id="complemento" value="#{loginMB.pessoaTransfer.complementoendereco}" validator="#{loginMB.validarComplemento}" styleClass="form-control"/>
+                            <p:message for="complemento"/>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-12">
+                            <p:outputLabel for="logradouro" value="Logradouro" />
+                            <p:inputText id="logradouro" value="#{loginMB.pessoaTransfer.logradouroendereco}" validator="#{loginMB.validarLogradouro}" styleClass="form-control"/>
+                            <p:message for="logradouro"/>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <p:outputLabel for="cidade" value="Cidade" />
+                            <p:inputText  id="cidade" value="#{loginMB.pessoaTransfer.cidadeendereco}" validator="#{loginMB.validarCidade}" styleClass="form-control"/>
+                            <p:message for="cidade"/>
+                        </div>
+
+                        <div class="ui-g-6">
+                            <p:outputLabel for="estado" value="Estado"/>
+                            <p:selectOneMenu id="estado" value="#{loginMB.pessoaTransfer.estadoendereco}" panelStyle="width:180px"
+                                             effect="fade"  filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue=""/>
+                                <f:selectItem itemLabel="Acre" itemValue="AC" />
+                                <f:selectItem itemLabel="Alagoas" itemValue="AL" />
+                                <f:selectItem itemLabel="Amapá" itemValue="AP" />
+                                <f:selectItem itemLabel="Amazonas" itemValue="AM" />
+                                <f:selectItem itemLabel="Bahia" itemValue="BA" />
+                                <f:selectItem itemLabel="Ceará" itemValue="CE" />
+                                <f:selectItem itemLabel="Distrito Federal" itemValue="DF" />
+                                <f:selectItem itemLabel="Espírito Santo" itemValue="ES" />
+                                <f:selectItem itemLabel="Goiás" itemValue="GO" />
+                                <f:selectItem itemLabel="Maranhão" itemValue="MA" />
+                                <f:selectItem itemLabel="Mato Grosso" itemValue="MT" />
+                                <f:selectItem itemLabel="Mato Grosso do Sul" itemValue="MS" />
+                                <f:selectItem itemLabel="Minas Gerais" itemValue="MG" />
+                                <f:selectItem itemLabel="Pará" itemValue="PA" />
+                                <f:selectItem itemLabel="Paraíba" itemValue="PB" />
+                                <f:selectItem itemLabel="Paraná" itemValue="PR" />
+                                <f:selectItem itemLabel="Pernambuco" itemValue="PE" />
+                                <f:selectItem itemLabel="Piauí" itemValue="PI" />
+                                <f:selectItem itemLabel="Rio de Janeiro" itemValue="RJ" />
+                                <f:selectItem itemLabel="Rio Grande do Norte" itemValue="RN" />
+                                <f:selectItem itemLabel="Rio Grande do Sul" itemValue="RS" />
+                                <f:selectItem itemLabel="Rondônia" itemValue="RO" />
+                                <f:selectItem itemLabel="Roraima" itemValue="RR" />
+                                <f:selectItem itemLabel="Santa Catarina" itemValue="SC" />
+                                <f:selectItem itemLabel="São Paulo" itemValue="SP" />
+                                <f:selectItem itemLabel="Sergipe" itemValue="SE" />
+                                <f:selectItem itemLabel="Tocantins" itemValue="TO" />
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+                    <p:spacer height="30px"/>
+
+                    <h3>Dados Cadastrais</h3>
+                    <p:separator/>
+                    <div class="ui-g-12">
+                        <div class="ui-g-12">
+                            <p:outputLabel for="usuario" value="Usuario*" />
+                            <p:inputText  id="usuario" value="#{loginMB.pessoaTransfer.usuariopessoa}" validator="#{loginMB.validarUsuario}" styleClass="form-control"/>                                            
+                            <p:message for="usuario"/>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-6">
+                            <p:outputLabel value="Tipo*" for="tipo"/>
+                            <p:selectOneMenu id="tipo" value="#{loginMB.pessoaTransfer.tipopessoa.toUpperCase()}" validator="#{loginMB.validarTipo}" effect="fade" disabled="true">
+                                <f:selectItem itemLabel="Selecione Tipo" itemValue=""/>
+                                <f:selectItem itemLabel="Administrador" itemValue="ADMINISTRADOR" id="administrador"/>
+                                <f:selectItem itemLabel="Cliente" itemValue="CLIENTE" id="cliente"/>
+                                <f:selectItem itemLabel="Usuario" itemValue="USUARIO" id="usuario1"/>
+                            </p:selectOneMenu>
+                            <p:message for="tipo" />
+                        </div>
+                        <div class="ui-g-6">
+                            <p:outputLabel for="status" value="Status*"/>
+                            <p:selectOneMenu disabled="true" id="status" value="#{loginMB.pessoaTransfer.statuspessoa.toUpperCase()}" styleClass="form-control">
+                                <f:selectItem itemLabel="Inativo" itemValue="I"></f:selectItem>
+                                <f:selectItem itemLabel="Ativo" itemValue="A"></f:selectItem>
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <p:spacer height="40px"/>
+
+                    <div class="ui-g-12 ">
+
+                        <p:toolbar>
+                            <f:facet name="right">
+
+
+                                <p:commandButton actionListener="#{loginMB.editarUsuarioLogado()}" value="Salvar" 
+                                                 ajax="false"   icon="fa fa-check" styleClass="btn-primary" update="formulario"/>
+                                <p:spacer width="10" height="10"
+                                          />
+                                <p:commandButton action="#{loginMB.limparAction}" value="Cancelar" 
+                                                 icon="fa fa-trash"
+                                                 styleClass="btn-danger">
+                                </p:commandButton>
+                                <p:spacer width="10" height="10" />
+
+                                <p:commandButton value="Voltar" immediate="true"
+                                                 action="index?faces-redirect=true"
+                                                 icon="fa fa-close"
+                                                 />
+                            </f:facet>
+                        </p:toolbar>
+                    </div>
+
+
+                </h:form>
+
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>
